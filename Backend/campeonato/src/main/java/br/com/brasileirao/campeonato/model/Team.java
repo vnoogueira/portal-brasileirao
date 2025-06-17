@@ -1,5 +1,7 @@
 package br.com.brasileirao.campeonato.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.io.Serializable;
@@ -9,8 +11,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
+@Entity
 public class Team implements Serializable {
 
+    @Id
     private Integer id;
     private String team;
     private String acronym;
