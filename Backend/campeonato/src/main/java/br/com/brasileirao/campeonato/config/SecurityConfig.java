@@ -1,7 +1,6 @@
 package br.com.brasileirao.campeonato.config;
 
 import br.com.brasileirao.campeonato.security.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
