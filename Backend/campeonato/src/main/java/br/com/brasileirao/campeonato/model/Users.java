@@ -41,6 +41,10 @@ public class Users implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String getPassword() {
         return password;

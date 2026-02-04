@@ -1,14 +1,33 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import api from "../services/api";
 
 interface PrivateRouteProps {
   children: ReactNode;
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
-  const token = localStorage.getItem("token");
+  const [isValid, setIsValid] = useState<boolean | null>(null);
 
-  return token ? children : <Navigate to="/login" />;
+  useEffect(() => {
+    const validateToken = async () => {
+      try {
+        await api.get("/auth/validate");
+        setIsValid(true);
+      } catch (error) {
+        localStorage.removeItem("token");
+        setIsValid(false);
+      }
+    };
+
+    validateToken();
+  }, []);
+
+  if (isValid === null) {
+    return <p>Carregando...</p>;
+  }
+
+  return isValid ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

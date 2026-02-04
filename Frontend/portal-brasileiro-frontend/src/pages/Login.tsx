@@ -1,35 +1,38 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [erro, setErro] = useState("");
 
+  console.log("Login component renderizado");
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log("Form submit disparado");
     setErro("");
 
+    console.log("Tentando logar com", email, password);
+
     try {
-      const response = await axios.post("http://localhost:8081/auth/login", {
+      const response = await api.post("/auth/login", {
         email: email,
         password: password,
       });
 
-      console.log(`login: ${email}`);
-
-      console.log(`password: ${password}`);
+      console.log("Resposta recebida", response.data);
 
       localStorage.setItem("token", response.data.token);
-      window.location.href = "/dashboard";
+      console.log(localStorage.getItem("token"));
     } catch (err) {
       setErro("Credenciais inválidas");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
+    <form className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded shadow-md w-80"
       >
@@ -56,13 +59,14 @@ const Login = () => {
         />
 
         <button
-          type="submit"
+          type="button"
           className="w-full bg-blue-500 text-white p-2 rounded"
+          onClick={handleSubmit}
         >
           Entrar
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

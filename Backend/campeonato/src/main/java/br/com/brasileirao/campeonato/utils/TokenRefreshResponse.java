@@ -1,13 +1,10 @@
-package br.com.brasileirao.campeonato.auth;
+package br.com.brasileirao.campeonato.utils;
 
-public class AuthenticationResponse {
-
+public class TokenRefreshResponse {
     private String accessToken;
     private String refreshToken;
 
-    public AuthenticationResponse() {}
-
-    public AuthenticationResponse(String accessToken, String refreshToken) {
+    public TokenRefreshResponse(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
